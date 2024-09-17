@@ -1,0 +1,141 @@
+03-09-2024
+
+Backend ----> it is part of system or application that works on behind the scenes. It is responsible for managing the
+                server, database, and application logic.
+Backend = Server + Database + Application Logic(code methods fuctionalities)
+Server -----> It is a computer or system that serves or give resposes to other computers or clients.(Programming language)
+Database -----> It is a system that stores and manages data.
+Application logic -----> The code that performs the operations required to process requests. It is either buisiness logic
+                        or data manipulation logic or validation logic.
+
+JavaScript ---> NodeJs(Run Time environment or to run server side scripts)
+Express JS(Framework in nodejs or minimal nodejs which provides essential functionalities like routing, middlewares to manage server side operations)
+Mongoose(Framework(library) in nodejs to connect with database)
+
+In backend we handle data three types :=== 1) Data (arrays,strings) 2) Files (videos,images,pdfs) 3) Third Party Data or APIs (send mail,send otp)
+
+File structure in backend:
+
+index --> connects database
+app --> configure, logic
+constants --> enums(seater type:-lower,upper,middle, window)
+
+Directory:
+
+DB: how to connect to database
+Models: Schema of database or how data is stored
+Controllers: Functions, methodologies
+middlewares:
+Routes: Paths/queries/requests
+Utils: Frequently used functionalities like send email for verification reset congratulate or successful
+
+
+===========================================================================================================================================================
+
+04-09-2024
+
+
+dotenv ---> any sensitive data (store in a file called .env (environment variables ===> "that may differ for each environment"))
+                                                                lets say i run my application on my local host portnumber 3000 and 
+                                                                You deployed it and the same local host may not be available on your computer.
+            eg: database string connection, username password, port number, one variable for deployment and one for production
+
+            set require('dotenv).config()
+            use process.env.VARIABLE_NAME to access
+
+gitignore ---> ignore some files while pushing into git repository. You can download it by using package.json file 
+                            eg: ignore node modules you can download it by npm init install
+
+how to deploy ----> Use platforms like digital ocean, render, railway,... etc 
+                            first push your code to git repo and deploy repo in some of the platforms mentioned above
+
+=================================================================================================================================================================
+
+express constantly listens on given port number (establishment of server)
+if there are any requests it responds according to the request
+in backend we handle these requests for each route or path like /, /login, /home ..... etc
+for each route or query there is call back function (req,res) => res.send("hii there") or res.json(object) working on response
+                                                        based on request we can respond like parsing the route... etc
+
+=================================================================================================================================================================
+
+                                ????????????????How to connect frontend to backend ??????????
+
+In backend you write or respond for each route or path 
+In frontend you request server for specific data and server responds and you display those response
+
+In frontend you request by using FETCH, AXIOS ... etc using frontend request ==> axios.get('http://localhost/8000/frnds')
+
+        frontend                                                                backend
+    on port 3000                                                                on port 8000
+    sent a request to server using                                             You respond to any request with in your origin
+    axios.get('http://localhost/8000/frnds')                                   meaning which came from same port number
+                                                                                from frontend its coming from port 3000
+                                                                                There you get an error regarding CORS(Cross Origin)
+                                        
+                                        How to solve this error
+                 1) You can use CORS in server where you can allow those particular requests coming from particular ports
+                 whitelisting the requests
+                 2) You can use PROXY meaning like VPN for frontend such that server finds that the request coming from same origin
+
+Do you need to separately deploy frontend and backend     
+You set the whole frontend build(npm run build) in a STATIC ASSET MIDDLEWARE in backend and run the backend thats it whole application is ready
+but incase any changes made in frontend does not affect on application to make changes you need to remove middleware and rebuild the frontend
+and remake the middleware with updated build.
+
+
+================================================================================================================================================
+17-09-2024
+
+What is HTTP??
+Hyper Text Transfer Protocol
+
+HTTP headers:
+metadata : key, value sent along with request and response
+
+caching, authentication, state management
+
+request headers ---> from clients
+responder headers ---> from server
+representation headers ---> encoding/compression
+payload headers ---> data
+
+Most common headers:
+Accept : application/json
+User - Agent ---> whether the request come from browser or app 
+Authorization
+Cookie
+Cache - Control
+
+Cross Origin Resource Allocator -->CORS: Access Control Allow Origin, Credentials, Method
+Security 
+
+
+HTTP Methods:
+Basic Set of operations that can be used to interact with server
+
+GET : Retrieve a Resource
+POST: interact with Resource(add)
+PUT : replace a Resource
+DELETE : delete a Resource
+HEAD: No message body
+OPTIONS : what operations available
+TRACE : loopback test(debugging)
+PATCH: change part of a resource
+
+
+HTTP Status Code
+1xx Informational
+2xx Success
+3xx Redirection
+4xx Client error
+5xx Server error
+
+100 continue        200 Ok              307 temporary redirect
+102 Processing      201 Created         308 permanet redirect
+                    202 accepted
+
+400 bad request         500 Internal Server Error
+401 unauthorized        504 gateway time out
+402 Payment required
+404 not found
