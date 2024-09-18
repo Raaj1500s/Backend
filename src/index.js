@@ -4,11 +4,11 @@ import {app} from './app.js'
 
 
 dotenv.config({
-    path: './env'
+    path: './.env'
 })
 
 connectDB()
-.then(() => {
+.then(() => {   
     app.listen( process.env.port || 8000, () => {
         console.log("Listening on port " + process.env.PORT);
         
