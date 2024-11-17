@@ -4,7 +4,7 @@ import {User} from "../models/user.model.js";
 import {uploadOnCloudinary} from "../utils/cloudinary.js";
 import {ApiResponse} from "../utils/ApiResponse.js";
 import mongoose from 'mongoose';
-import {jwt} from "jsonwebtoken"
+import jwt from "jsonwebtoken"
 
 const registerUser = asyncHandler(async (req,res) => {
     // get user details from frontend(here we are using postman)
