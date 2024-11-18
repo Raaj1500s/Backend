@@ -6,6 +6,7 @@ import {
     refreshAccessToken, 
     changeCurrentPassword, 
     getCurrentUser,
+    updateAccountDetails,
     updateUserAvatar,
     updateUserCoverImage,
     getUserChannelProfile,
