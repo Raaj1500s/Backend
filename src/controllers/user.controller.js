@@ -105,7 +105,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
 
     const {email, username, password} = req.body
-    if (!username || !email){
+    if (!username && !email){
         throw new ApiError(400, "username or email is required")
     }
 
@@ -155,8 +155,8 @@ const logoutUser = asyncHandler(async(req, res) => {
     await User.findByIdAndUpdate(
         req.user._id,
         {
-            $set: {
-                refreshToken: undefined
+            $unset: {
+                refreshToken: 1 //This is used to delete the refresh token
             }
         },
         {
@@ -183,7 +183,7 @@ const refreshAccessToken = asyncHandler(async(req, res) => {
 
     try {
         const decodedToken = jwt.verify(incomingRefreshToken, process.env.REFRESH_TOKEN_SECRET)
-        const user = User.findById(decodedToken?._id)
+        const user = await User.findById(decodedToken?._id)
 
         if(!user){
             throw new ApiError(401, "Invalid refresh token")
@@ -198,7 +198,7 @@ const refreshAccessToken = asyncHandler(async(req, res) => {
             secure: true
         }
     
-        const {accessToken, newRefreshToken} = await generateAccessAndRefereshTokens(user._id)
+        const {accessToken, newRefreshToken} = await generateAccessAndRefreshTokens(user._id)
     
         return res
         .status(200)
@@ -241,13 +241,15 @@ const getCurrentUser = asyncHandler(async (req, res) => {
 })
 
 const updateAccountDetails = asyncHandler(async (req, res) => {
+    console.log(req.body);
+    
     const {fullname, email} = req.body
 
     if (!fullname || !email) {
         throw new ApiError(400, "All fields are required")
     }
 
-    const user = User.findByIdAndUpdate(
+    const user = await User.findByIdAndUpdate(
         req.user?._id,
         {
             $set:{
